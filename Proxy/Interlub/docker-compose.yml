@@ -6,13 +6,13 @@ services:
     network_mode: "host"
     restart: "always"
     environment:
-      - ZBX_HOSTNAME=ADCOS                                    # Nome do cliente/proxy (Deve ser exato ao configurado no Zabbix Server. OBS.: CASE SENSITIVE)
+      - ZBX_HOSTNAME=INTERLUB                                 # Nome do cliente/proxy (Deve ser exato ao configurado no Zabbix Server. OBS.: CASE SENSITIVE)
       - ZBX_SERVER_HOST=zabbix.proxy.tecnocomp.com.br:28051   # Servidor/Porta de destino para conexão
       - ZBX_DEBUGLEVEL=3
       - ZBX_DATASENDERFREQUENCY=1
       - ZBX_STARTPOLLERS=10
       - ZBX_STARTPREPROCESSORS=5
-      - ZBX_IPMIPOLLERS=2
+      - ZBX_IPMIPOLLERS=5
       - ZBX_STARTPOLLERSUNREACHABLE=10
       - ZBX_STARTTRAPPERS=5
       - ZBX_STARTPINGERS=20
