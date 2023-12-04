@@ -1,0 +1,43 @@
+version: "3"
+services:
+  proxy:
+    image: zabbix/zabbix-proxy-sqlite3:ubuntu-6.4-latest      # Versão utilizada no servidor
+    container_name: ZABBIX-PROXY
+    network_mode: "host"
+    restart: "always"
+    environment:
+      - ZBX_HOSTNAME=ADCOS                                    # Nome do cliente/proxy (Deve ser exato ao configurado no Zabbix Server. OBS.: CASE SENSITIVE)
+      - ZBX_SERVER_HOST=zabbix.proxy.tecnocomp.com.br:28051   # Servidor/Porta de destino para conexão
+      - ZBX_DEBUGLEVEL=3
+      - ZBX_DATASENDERFREQUENCY=1
+      - ZBX_STARTPOLLERS=10
+      - ZBX_STARTPREPROCESSORS=5
+      - ZBX_IPMIPOLLERS=2
+      - ZBX_STARTPOLLERSUNREACHABLE=10
+      - ZBX_STARTTRAPPERS=5
+      - ZBX_STARTPINGERS=20
+      - ZBX_STARTDISCOVERERS=5
+      - ZBX_STARTVMWARECOLLECTORS=0
+      - ZBX_CACHESIZE=1G
+      - ZBX_STARTDBSYNCERS=4
+      - ZBX_HISTORYCACHESIZE=64M
+      - ZBX_HISTORYINDEXCACHESIZE=64M
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro     
+      - ./mibs:/var/lib/zabbix/mibs:rw
+      - ./snmptraps:/var/lib/zabbix/snmptraps:rw
+      - ./ssl/ssl_ca:/var/lib/zabbix/ssl/ssl_ca:rw
+      - ./ssl/keys:/var/lib/zabbix/ssl/keys:rw
+      - ./ssl/certs:/var/lib/zabbix/ssl/certs:rw
+      - ./ssh_keys:/var/lib/zabbix/ssh_keys:rw
+      - ./enc:/var/lib/zabbix/enc:rw
+      - ./modules:/var/lib/zabbix/modules:rw
+      - ./externalscripts:/usr/lib/zabbix/externalscripts:rw
+  updater:
+    image: containrrr/watchtower
+    container_name: WATCHTOWER
+    restart: "always"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: ZABBIX-PROXY --interval 30

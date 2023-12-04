@@ -67,3 +67,13 @@ systemctl enable zabbix-agent2.service
 
 # Reiniciar o Agent
 systemctl restart zabbix-agent2.service
+
+# Instalação do Cockpit Project
+apt install -yt jammy-backports cockpit
+
+# Configuração do Firewall UFW
+
+sudo ufw allow 22/tcp
+sudo ufw allow 9090/tcp
+sudo ufw allow 10050/tcp
+sudo ufw enable
