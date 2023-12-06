@@ -1,7 +1,7 @@
 # Script de preparação base do SO
 
 # Verificação de super usuário
-if [ "$EUID" -ne 0 ] then
+if [ "$EUID" -ne 0 ]; then
     echo "Por favor, inicie o script como super usuário (SUDO)"
     exit 
 fi
@@ -36,7 +36,7 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 # Configuração do Zabbix Agent
 
 # Instalação das dependencias
