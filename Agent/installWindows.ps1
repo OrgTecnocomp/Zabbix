@@ -1,3 +1,6 @@
+# Elevação automática do script para Administrador
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+
 # Variáveis definidas
 $zbxHost    =   $args[0]
 $zbxFolder  =   "C:\Program Files\Zabbix\"
