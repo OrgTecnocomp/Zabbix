@@ -1,8 +1,8 @@
+param ([string]$zbxHost)
 # Elevação automática do script para Administrador
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 # Variáveis definidas
-param ($zbxHost)
 $zbxFolder   =   "C:\Program Files\Zabbix\"
 $zbxConf    =   @"
 LogFile=$zbxFolder\zabbix_agent2.log
@@ -14,8 +14,6 @@ Hostname=$env:COMPUTERNAME
 ControlSocket=\\.\pipe\agent.sock
 Include=.\zabbix_agent2.d\plugins.d\*.conf
 "@
-
-# Remove arquivos antigos
 
 # Download do Zabbix Agent2 6.4
 Invoke-WebRequest -OutFile $env:Temp\zabbix.zip https://cdn.zabbix.com/zabbix/binaries/stable/6.4/6.4.9/zabbix_agent2-6.4.9-windows-amd64-static.zip
