@@ -17,7 +17,7 @@ Include=.\zabbix_agent2.d\plugins.d\*.conf
 
 # Download do Zabbix Agent2 6.4
 Invoke-WebRequest -OutFile $env:Temp\zabbix.zip https://cdn.zabbix.com/zabbix/binaries/stable/6.4/6.4.9/zabbix_agent2-6.4.9-windows-amd64-static.zip
-New-Item -Name "Zabbix" -Path "C:\Program Files\" -ItemType Directory
+New-Item -Name "Zabbix" -Path "C:\Program Files\" -ItemType Directory -ErrorAction SilentlyContinue
 Expand-Archive -Path $env:Temp/zabbix.zip -DestinationPath $zbxFolder -Force -Confirm
 Remove-Item -Path $env:Temp\zabbix.zip
 
