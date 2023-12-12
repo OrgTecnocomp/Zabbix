@@ -25,6 +25,10 @@ Remove-Item -Path $env:Temp\zabbix.zip
 Remove-Item -Path $zbxFolder\conf\zabbix_agent2.conf # Remoção do arquivo antigo
 New-Item -Name "zabbix_agent2.conf" -Path $zbxFolder\conf -ItemType File -Value $zbxConf # Inclusão do arquivo novo
 
+# Desliga serviços antigos
+Stop-Service 'Zabbix Agent'
+Stop-Service 'Zabbix Agent 2'
+
 # Realiza a instalação do agent
 Set-Location $zbxFolder\bin
 .\zabbix_agent2.exe -c $zbxFolder\conf\zabbix_agent2.conf -i
