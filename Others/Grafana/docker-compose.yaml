@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    image: grafana/grafana
+    container_name: GRAFANA
+    hostname: GRAFANA
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - DATA:/var/lib/grafana
+      - CONF:/etc/grafana
+      - LOGS:/var/log/grafana
+    networks:
+      - GRAFANA-NETWORK
+
+volumes:
+  DATA:
+  CONF:
+  LOGS:
+
+networks:
+  GRAFANA-NETWORK:
+    driver: bridge
